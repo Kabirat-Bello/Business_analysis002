@@ -63,10 +63,6 @@ col1.metric(label = "💰Total Revenue", value= f'${round(filtered_df["Revenue"]
 col2.metric(label = "📦Total Sales Volume", value= f'{round(filtered_df["Sales Volume"].sum()/1000000,2)} M', border= True)
 col3.metric(label = "🛒Total Records", value=filtered_df.shape[0], border = True)
 
-# col1.metric("💰 Total Revenue", f"${total_revenue:,.0f}", border = True)
-# col2.metric("📦 Total Sales Volume", f'{total_sales}M', border= True)
-# col3.metric("🛒 total_records", total_records, border = True)
-
 st.markdown("""
 ### Insights:
 - 💡 Total Revenue shows overall money earned.
