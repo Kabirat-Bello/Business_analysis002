@@ -7,7 +7,7 @@ import plotly_express as px
 # bring in the data.
 df = pd.read_csv("Business_sales_EDA.csv", sep =";", index_col= "Product ID")
 # clean the data
-df= df.drop(columns =['brand', 'Product Category', 'currency', 'name', 'description', 'url'])
+df= df.drop(columns =['brand', 'Product Category', 'currency', 'name', 'description', 'url', 'Seasonal'])
 df.dropna(inplace = True)
 # st.dataframe(df)
 # st.write(df["season"])
