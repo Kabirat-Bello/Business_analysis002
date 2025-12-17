@@ -97,7 +97,7 @@ season = (
     .sort_values(by="Sales Volume", ascending=False)
 )
 
-# Round to whole numbers (no decimals for units)
+
 season["Sales Volume"] = season["Sales Volume"].round(0).astype(int)
 
 def format_units(x):
@@ -110,17 +110,16 @@ def format_units(x):
     else:
         return f"{x:,} units"
 
-# Create formatted column
+
 season["Sales Volume (Formatted)"] = season["Sales Volume"].apply(format_units)
 
-# Clean display table
 season_display = season[["season", "Sales Volume (Formatted)"]].copy()
 season_display.columns = ["Season", "Total Units Sold"]
 
 st.write("**Total Sales Volume by Season (Highest to Lowest):**")
 st.dataframe(season_display, use_container_width=True, hide_index=True)
 
-# plot the graph 
+#graph
 bar_fig = px.bar(
     season,
     x="season",
@@ -133,7 +132,7 @@ pie_fig =px.pie(season, names="season", values = "Sales Volume", title = "Sales 
 col1, col2 = st.columns(2)
 col1.plotly_chart(bar_fig, use_container_width=True)
 col2.plotly_chart(pie_fig, use_container_width=True)
-# Highlight top season
+
 top_season = season.iloc[0]["season"].capitalize()
 top_units = season.iloc[0]["Sales Volume (Formatted)"]
 st.success(f"🏆 Highest sales volume: **{top_season}** with **{top_units}**")
@@ -151,16 +150,16 @@ with_promotion =filtered_df[filtered_df["Promotion"] =="Yes"]["Sales Volume"].su
 without_promotion = filtered_df[filtered_df["Promotion"] !="Yes"]["Sales Volume"].sum()
 st.write("with_promotion the total sales : ", with_promotion, "units sold")
 st.write("without_promotion the total sales : ", without_promotion, "units sold")
-# st.success("Yes! Promotion increase sales by about 16% 🎉")
+
 # pie chat
 promo_data= pd.DataFrame({"Promotion":["with_promotion", "without_promotion"],"Sales Volume":[with_promotion, without_promotion]})
 fig_pie =px.pie(promo_data,values = "Sales Volume",names= "Promotion", title = "Sales Distribution of With Promotion vs Without Promotion")
 color_discrete_sequence= ["#FF6B6B", "#4ECDC4"]
 # hole = 0.4,
 fig_pie.update_traces(hole=0.4) 
-# this put a hole inside the pie making it look like donut
+
 fig_pie.update_traces(textposition= "inside",textinfo= "percent+label")
-# text position put thr text inside each slice, text info shows the percrnt and label inside the chart.
+
 st.plotly_chart(fig_pie,use_container_width = True)
 percent_increase = ((with_promotion - without_promotion)/without_promotion)*100
 st.success(f"Yes! Promotion increase total sales volume by about {percent_increase:.1f}% 🎉")
@@ -175,7 +174,7 @@ st.write("Revenue by product position")
 # Round to whole numbers and create a readable formatted column
 position["Revenue"] = position["Revenue"].round(0).astype(int)
 
-# Function to format big numbers.
+# format the numbers
 def format_revenue(x):
     if x >= 1000000000:  # Billions
         return f"${x / 1000000000:.2f}B"
@@ -188,14 +187,13 @@ def format_revenue(x):
 
 position["Revenue (Formatted)"] = position["Revenue"].apply(format_revenue)
 
-# Rename for clean display
 position_display = position[["Product Position", "Revenue (Formatted)"]].copy()
 position_display.columns = ["Product Position", "Total Revenue"]
 
-# Display title and table
+
 st.dataframe(position_display, use_container_width=True, hide_index=True)
 
-# Optional: Add a bar chart to visualize it
+
 fig = px.bar(
     position,
     x="Product Position",
@@ -208,7 +206,7 @@ fig.update_traces(textposition="outside")
 fig.update_layout(yaxis_title="Revenue", xaxis_title="Product Position")
 st.plotly_chart(fig, use_container_width=True)
 
-# Highlight the top performer
+
 top_position = position.iloc[0]["Product Position"]
 top_revenue = position.iloc[0]["Revenue (Formatted)"]
 st.success(f"🏆 The highest revenue comes from **{top_position}** with **{top_revenue}**!")
@@ -224,7 +222,7 @@ top_products = (
     .reset_index()
     .sort_values(by="Revenue", ascending=False)
 )
-# Format nicely
+
 top_products["Revenue"] = top_products["Revenue"].round(0).astype(int)
 def format_revenue(x):
     if x >= 1000000:
@@ -238,7 +236,7 @@ def format_revenue(x):
 
 top_products["Total Revenue"] = top_products["Revenue"].apply(format_revenue)
 
-# Clean display
+
 display_df = top_products[["terms", "Total Revenue"]].copy()
 st.subheader("Top Products by Revenue")
 st.dataframe(display_df, use_container_width=True, hide_index=True)  # Top 10
@@ -255,7 +253,6 @@ fig = px.bar(
 fig.update_traces(textposition="outside")
 st.plotly_chart(fig, use_container_width=True)
 
-# Top performer
 top_product = top_products.iloc[0]["terms"]
 top_rev = top_products.iloc[0]["Total Revenue"]
 st.success(f"🏆 number1 Top Seller: **{top_product}** with **{top_rev}** in revenue!")
