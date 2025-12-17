@@ -82,7 +82,7 @@ elif column is not None and item is None:
 else:
     st.header("Bussiness Sales Analysis.")
     st.info("Please select a column you want to filter in the side bar")
-st.dataframe(filtered_df)
+st.dataframe(filtered_df, use_container_width = True)
 
  # question 1
 st.header("📊 Sales Volume by Season")
