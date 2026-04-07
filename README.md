@@ -2,6 +2,10 @@
 
 An interactive dashboard that explores sales data to answer important business questions.
 
+## Live Dashboard
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg) (https://kabirat-sales-dashboard.streamlit.app/)
+
 ### What This Dashboard Shows
 - Which season has the highest sales
 - How promotions affect sales volume
